@@ -19,23 +19,62 @@ vector<string> cargar_listado(const string & nombre_archivo){
         words.push_back(line);
     }
     infile.close();                                                             //
+    if (words.size() == 1 && words[0].size() == 0){
+        return vector<string>();
+    }
     return words;
 }
 
 bool intento_valido(const string & intento, const string & palabra_secreta, const vector<string> &listado){
-    // completar
-
+    if(intento.size() != palabra_secreta.size()){
+        return false;
+    }
+    for(int i = 0; i < listado.size(); i++){
+        if(intento == listado[i]){
+            return true;
+        }
+    }
     return false;
 }
 
 vector<EstadoLetra> evaluar_intento(const string & intento, const string & palabra_secreta){
-    // completar
+    vector<EstadoLetra> res;
+    for(int i = 0; i < palabra_secreta.size(); i++){
+        if(intento[i] == palabra_secreta[i]){
+            res.push_back(EstadoLetra::LugarCorrecto);
+        }
+        else{
+            bool found = false;
+            for(int j = 0; j < palabra_secreta.size(); j++){
+                if(intento[i] == palabra_secreta[j]){
+                    found = true;          
+                }
+            }
+            if(found){
+                res.push_back(EstadoLetra::LugarIncorrecto);
+            }
+            else{
+                res.push_back(EstadoLetra::NoPresente);
+            }
+        }
+    }
 
-    return vector<EstadoLetra>();
+    return res;
 }
 
 string respuesta_en_string(const vector<EstadoLetra> & respuesta){
-    // completar
+    string str;
+    for(int i = 0; i < respuesta.size(); i++){
+        if(respuesta[i] == EstadoLetra::LugarCorrecto){
+            str.append("+");
+        }
+        else if(respuesta[i] == EstadoLetra::LugarIncorrecto){
+            str.append("-");
+        }
+        else{
+            str.append("X");
+        }
+    }
 
-    return "";
+    return str;
 }
