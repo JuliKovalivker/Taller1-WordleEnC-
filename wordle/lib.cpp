@@ -7,18 +7,20 @@
 using namespace std;
 
 vector<string> cargar_listado(const string & nombre_archivo){
-    ifstream infile(nombre_archivo);                                            //
-    if (infile.good() == false) {                                               //
-        cout << "No se pudo abrir el archivo " << nombre_archivo << endl;       //
-        exit(1);                                                                //
-    }                                                                           //
-    string line;                                                                //
+    ifstream infile(nombre_archivo);                                            
+    if (infile.good() == false) {                                               
+        cout << "No se pudo abrir el archivo " << nombre_archivo << endl;       
+        exit(1);                                                                
+    }                                                                           
+    string line;                                                                
     vector<string> words;
-    while(!infile.eof()) {                                                      //
-        getline(infile, line);                                                  //
-        words.push_back(line);
+    while(!infile.eof()) {
+        if(line.size() > 0)  {
+            getline(infile, line);                                                 
+            words.push_back(line);
+        }                   
     }
-    infile.close();                                                             //
+    infile.close();                                                             
     if (words.size() == 1 && words[0].size() == 0){
         return vector<string>();
     }
