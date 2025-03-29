@@ -15,6 +15,10 @@ int main(){
 
     /// CARGA LISTADO DE PALABRAS ///
     vector<string> words = cargar_listado(filename);
+    if(words.size() < 1){
+        cout << "Listado de palabras vacio" << endl;
+        return 0;
+    }
     srand(time(nullptr));
     string selected_word = words[rand() % (words.size())];
 
